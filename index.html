@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Certificate QR Code Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0 16px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #qrcode {
+      margin: 20px auto;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Certificate QR Code Generator</h2>
+
+  <label>Certificate ID:</label>
+  <input type="text" id="certificate_id" placeholder="e.g. CERT8268">
+
+  <label>Name:</label>
+  <input type="text" id="name" placeholder="e.g. M. SHAKTHIVEL">
+
+  <label>College:</label>
+  <input type="text" id="college" placeholder="e.g. JHA Agarsen College">
+
+  <label>Domain:</label>
+  <input type="text" id="domain" placeholder="e.g. Full Stack">
+
+  <label>Project:</label>
+  <input type="text" id="project" placeholder="e.g. Blog Website using Flask">
+
+  <label>Company:</label>
+  <input type="text" id="company" value="VIPS.Tech" readonly>
+
+  <label>Start Date:</label>
+  <input type="date" id="start_date">
+
+  <label>End Date:</label>
+  <input type="date" id="end_date">
+
+  <button onclick="generateQRCode()">Generate QR Code</button>
+
+  <div id="qrcode"></div>
+  <div style="text-align: center;">
+    <a id="downloadBtn" style="display:none;" download="certificate_qr.png">
+      <button>Download QR Code</button>
+    </a>
+  </div>
+
+  <!-- QR generator library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script>
+    function formatDate(dateStr) {
+      const [year, month, day] = dateStr.split("-");
+      return `${day}/${month}/${year}`;
+    }
+
+    function generateQRCode() {
+      const certificate_id = document.getElementById("certificate_id").value;
+      const name = document.getElementById("name").value;
+      const college = document.getElementById("college").value;
+      const domain = document.getElementById("domain").value;
+      const project = document.getElementById("project").value;
+      const company = document.getElementById("company").value;
+      const start_date = document.getElementById("start_date").value;
+      const end_date = document.getElementById("end_date").value;
+
+      if (!certificate_id || !name || !college || !domain || !project || !start_date || !end_date) {
+        alert("Please fill all the fields and select both start and end dates.");
+        return;
+      }
+
+      // ✅ Replace Unicode dash with simple 'to'
+      const duration = `${formatDate(start_date)} to ${formatDate(end_date)}`;
+
+      const qrText = 
+        `Certificate ID: ${certificate_id}\n` +
+        `Name: ${name}\n` +
+        `College: ${college}\n` +
+        `Domain: ${domain}\n` +
+        `Project: ${project}\n` +
+        `Company: ${company}\n` +
+        `Duration: ${duration}`;
+
+      const qr = new QRious({
+        element: document.createElement('canvas'),
+        value: qrText,
+        size: 250
+      });
+
+      const qrcodeDiv = document.getElementById("qrcode");
+      qrcodeDiv.innerHTML = "";
+      qrcodeDiv.appendChild(qr.element);
+
+      const downloadBtn = document.getElementById("downloadBtn");
+      downloadBtn.href = qr.element.toDataURL("image/png");
+      downloadBtn.download = `${name.replace(/ /g, "_")}_QR.png`;
+      downloadBtn.style.display = "inline-block";
+    }
+  </script>
+
+</body>
+</html>

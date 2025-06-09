@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  .person-form {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 15px auto;
+    max-width: 600px;
+    border-radius: 10px;
+  }
+  
+  .person-form input {
+    margin: 5px;
+    padding: 8px;
+    width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background: #0056b3;
+  }
+  
+  .qr-block {
+    background: #fff;
+    border: 1px solid #ddd;
+    margin: 20px auto;
+    padding: 15px;
+    width: 300px;
+    border-radius: 10px;
+  }
+  
+  .qr-block p {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .qr-block canvas {
+    margin-bottom: 10px;
+  }
+  
+  .qr-block button {
+    margin: 5px;
+    padding: 6px 14px;
+    font-size: 14px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .qr-block button:hover {
+    background-color: #1e7e34;
+  }
+  

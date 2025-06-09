@@ -42,6 +42,76 @@
   </style>
 </head>
 <body>
+  <header>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <nav id="sideMenu" class="side-menu">
+      <div class="close-btn" onclick="toggleMenu()">×</div>
+      <ul>
+        <li><a href="index.html">Single QR Generator</a></li>
+        <li><a href="multi.html">Multi QR Generator</a></li>
+      </ul>
+    </nav>
+    <style>
+      .hamburger {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 1000;
+      }
+      
+      .side-menu {
+        position: fixed;
+        top: 0;
+        right: -250px;
+        width: 250px;
+        height: 100vh;
+        background: #fff;
+        box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+        transition: right 0.3s ease;
+        z-index: 999;
+      }
+      
+      .side-menu.active {
+        right: 0;
+      }
+      
+      .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      
+      .side-menu ul {
+        list-style: none;
+        padding: 60px 20px 20px;
+        margin: 0;
+      }
+      
+      .side-menu li {
+        margin: 15px 0;
+      }
+      
+      .side-menu a {
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+      }
+      
+      .side-menu a:hover {
+        color: #007bff;
+      }
+    </style>
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById('sideMenu');
+        menu.classList.toggle('active');
+      }
+    </script>
+  </header>
 
   <h2>Certificate QR Code Generator</h2>
 

@@ -23,6 +23,15 @@ function addPerson() {
   personCount++;
 }
 
+function formatDate(inputDate) {
+  const date = new Date(inputDate);
+  if (isNaN(date)) return ''; // Handle invalid date
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
 function generateQRs() {
   const qrContainer = document.getElementById('qr-container');
   qrContainer.innerHTML = ''; // Clear old QRs
@@ -37,19 +46,20 @@ function generateQRs() {
     const domain = form.querySelector('.domain').value;
     const project = form.querySelector('.project').value;
     const company = form.querySelector('.company').value;
-    const startDate = form.querySelector('.start_date').value;
-    const endDate = form.querySelector('.end_date').value;
-    const duration = `${startDate} - ${endDate}`;
+    const startDateRaw = form.querySelector('.start_date').value;
+    const endDateRaw = form.querySelector('.end_date').value;
+    const startDate = formatDate(startDateRaw);
+    const endDate = formatDate(endDateRaw);
+    const duration = `${startDate} to ${endDate}`;
 
-    const data = {
-      certificate_id: cert_id,
-      name,
-      college,
-      domain,
-      project,
-      company,
-      duration
-    };
+    const dataString = 
+    `Certificate ID: ${cert_id}\n` +
+    `Name: ${name}\n` +
+    `College: ${college}\n` +
+    `Domain: ${domain}\n` +
+    `Project: ${project}\n` +
+    `Company: ${company}\n` +
+    `Duration: ${duration}`;
 
     const qrDiv = document.createElement('div');
     qrDiv.className = 'qr-block';
@@ -61,7 +71,7 @@ function generateQRs() {
     canvas.id = `qr-${i}`;
     const qr = new QRious({
       element: canvas,
-      value: JSON.stringify(data),
+      value: dataString,
       size: 200
     });
 
